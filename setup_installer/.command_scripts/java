@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source main
+java_docker "$@"
+

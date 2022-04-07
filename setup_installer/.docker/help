@@ -1,0 +1,40 @@
+https://stackoverflow.com/questions/71734470/can-not-run-appimages-inside-rootless-docker-container 
+
+I have installed rootless docker on ubuntu 20.04 \[https://docs.docker.com/engine/security/rootless/\]\[1\]
+
+I have download vscodium appimage from \[https://github.com/VSCodium/vscodium/releases/download/1.66.0/VSCodium-1.66.0-1648720116.glibc2.17-x86_64.AppImage\]\[1\]
+
+1. i have shared host directory containing this Appimage with rootless docker container. But it doesn't run. When I manually install(apt-get install) any GUI package(ex. firefox) inside the container it runs successfully.
+
+2. output of the command: docker-compose up vscodium  
+   
+
+    Creating vscodium ... done  
+       Attaching to vscodium  
+       vscodium        | codium: error while loading shared libraries: libnss3.so: cannot open shared object file: No such file or directory  
+       vscodium exited with code 127
+
+3. content of file docker-compose.yml
+
+    version: "3"  
+    services:
+        vscodium:
+        image: python:3.10.4-bullseye
+        entrypoint: custom-docker-entrypoint.sh
+        container_name: vscodium
+        environment:
+          - DISPLAY=${DISPLAY}
+        volumes:
+          - /tmp/.X11-unix:/tmp/.X11-unix:ro
+          - $HOME/.Xauthority:$HOME/.Xauthority:ro
+          - ./custom-docker-entrypoint.sh:/usr/local/bin/custom-docker-entrypoint.sh
+          - ./appImages/VSCodium.AppImage:/ide/VSCodium.AppImage
+        network_mode: host
+
+4. content of file custom-docker-entrypoint.sh
+
+    #!/bin/sh 
+    
+    chmod a+x /ide/VSCodium.AppImage
+    
+    /ide/VSCodium.AppImage --appimage-extract-and-run
