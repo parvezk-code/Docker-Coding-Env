@@ -17,6 +17,7 @@ How does this setup work (docker-compose, set_env_bashrc, proxy cmds )
 	=> these intersecpted(proxy) commands execute actual commands on the conatiners
 	=> update $PATH in .bashrc to redirect commands to dir(.command_scripts)
 	=> update .bashrc to expose environment variables needed by main(proxy) script.
+	=> create .desktop file for XAMPP UI at Desktop
 
 Steps to install a new language inside this lab setup
 	=> add the new service inside docker-compose file
