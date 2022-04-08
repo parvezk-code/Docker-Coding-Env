@@ -1,0 +1,8 @@
+# need to set LAB_1234_XAMPP_FILE environment variable in .profile and .bashrc
+[Desktop Entry]
+Version=1.0
+Name= XAMPP DOC
+Icon=code
+Exec=bash -c "python3 $LAB_1234_XAMPP_FILE"
+Type=Application
+Terminal=false

@@ -30,7 +30,10 @@ if ! grep -q "$LAB_1234_ENV_FILE" "$HOME/.profile"; then
 	echo "source $LAB_1234_ENV_FILE" >> $HOME/.profile
 fi
 
-#5 hidden mode. change permissions to read only. can not delete
-# chmod 555 -R $DOCKER_DIR_NAME  $CMD_SCRIPTS_DIR  $CODE_DIR_NAME
+#5 copy XAMPP desktop file to Desktop
+cp $LAB_1234_ROOT/$XAMPP_DIR_NAME/$XAMPP_DESKTOP_FILE  $HOME/$XAMPP_DESKTOP_FILE
 
-#6 change the exports inside the file command_scripts/main
+#6 hidden mode. change permissions to read only. can not delete
+chmod 555 -R $DOCKER_DIR_NAME  $CMD_SCRIPTS_DIR  $CODE_DIR_NAME $XAMPP_DIR_NAME
+
+#7 change the exports inside the file command_scripts/main

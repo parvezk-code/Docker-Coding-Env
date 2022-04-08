@@ -43,5 +43,6 @@ Steps To remove this setup
 	=> docker rm $(docker ps -a -f status=exited -q)
 	=> remove all container images
 	=> remove directory containing setup/installation files
+	=> remove XAMPP.desktop file from desktop
 
 
