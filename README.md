@@ -21,6 +21,7 @@ How does this setup work (docker-compose, set_env_bashrc, proxy cmds )
 	=> these intersecpted(proxy) commands execute actual commands on the conatiners
 	=> update $PATH in .bashrc to redirect commands to dir(.command_scripts)
 	=> update .bashrc to expose environment variables needed by main(proxy) script.
+	=> create .desktop file for XAMPP UI at Desktop
 
 Steps to install a new language inside this lab setup
 	=> add the new service inside docker-compose file
@@ -39,7 +40,7 @@ The docker-compose.yml containes following container services
 	=> vscodeserver (codercom/code-server) : need more configuration
 
 Steps To remove this setup
-	=> remove line from $HOME/.bashrc
+	=> remove line from $HOME/.bashrc and $HOME/.profile
 			source /home/........./.docker/setEnvVar.sh
 	=> remove directory(code)
 	=> docker-compose down
@@ -47,6 +48,7 @@ Steps To remove this setup
 	=> docker rm $(docker ps -a -f status=exited -q)
 	=> remove all container images
 	=> remove directory containing setup/installation files
+	=> remove XAMPP.desktop file from desktop
 
 
 
