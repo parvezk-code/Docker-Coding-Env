@@ -55,10 +55,6 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix:ro
       - $HOME/.Xauthority:$HOME/.Xauthority:ro
       - $HOME:/home/newuser
-      #- ./config_files/python10/custom-docker-entrypoint.sh:/usr/local/bin/custom-docker-entrypoint.sh
-    #network_mode: host
-    #entrypoint: custom-docker-entrypoint.sh
-    #user: root
 
 # docker-compose exec -w %d gcc11 gcc -g %f -w -o ./zz.out
 # docker-compose exec -w "%d" gcc11 ./zz.out
@@ -74,9 +70,7 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix:ro
       - $HOME/.Xauthority:$HOME/.Xauthority:ro
       - $HOME:/home/newuser
-      #- ./config_files/gcc/custom-docker-entrypoint.sh:/usr/local/bin/custom-docker-entrypoint.sh
     #network_mode: host
-    #entrypoint: custom-docker-entrypoint.sh"]
     #user: root
 
 # docker-compose exec -w %d java17 javac %f
@@ -93,10 +87,13 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix:ro
       - $HOME/.Xauthority:$HOME/.Xauthority:ro
       - $HOME:/home/newuser
-      #- ./config_files/java/custom-docker-entrypoint.sh:/usr/local/bin/custom-docker-entrypoint.sh
     #network_mode: host
-    #entrypoint: custom-docker-entrypoint.sh
     #user:root
+
+#xhost +
+#docker run --rm -it -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix 
+
+# Libre Office AppImage: https://www.libreoffice.org/download/appimage/
 
   portainer:
     image: portainer/portainer-ce
