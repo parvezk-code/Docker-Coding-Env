@@ -35,7 +35,7 @@ The docker-compose.yml containes following container services
 	=> vscodeserver (codercom/code-server) : need more configuration
 
 Steps To remove this setup
-	=> remove line from $HOME/.bashrc
+	=> remove line from $HOME/.bashrc and $HOME/.profile
 			source /home/........./.docker/setEnvVar.sh
 	=> remove directory(code)
 	=> docker-compose down
