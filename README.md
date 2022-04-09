@@ -29,6 +29,12 @@ Steps to install a new language inside this lab setup
 		  LAB_1234_XXX_CONTAINER_NAME
 	=> create command intersecpter inside directory(command_scripts)
 
+Steps to install a new docker-compose file
+	=> add the new docker-compose file to directory  ./poly_cse/.docker
+	=> export path of new docker-compose file inside ./poly_cse/.docker/setEnvVar.sh
+	      export LAB_1234_MERN_COMPOSE_FILE = ..............
+	=> use this new exported environmet variable to start/stop new services.
+
 The docker-compose.yml containes following container services
 	=> apache	(php:7.2-apache)
 	=> mariadb	(mariadb:10.7.3-focal)

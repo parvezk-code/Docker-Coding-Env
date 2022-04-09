@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=VS Codium
+Icon=code
+Exec=bash -c "$HOME/appImages/VSCodium-1.66.0.AppImage"
+Type=Application
+Terminal=false
+
+# ~/.local/share/applications/VSCodium.desktop
