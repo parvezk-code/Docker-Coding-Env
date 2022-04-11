@@ -1,5 +1,22 @@
 #!/bin/bash
 
 source main
+
+COMPOSE_FILE=$LAB_1234_COMPOSE_FILE
+JAVA_CONTAINER_NAME=$LAB_1234_JAVA_CONTAINER_NAME 
+DOCKER_HOME=$LAB_1234_CONTAINER_USER_HOME
+dir_mapped_in_container="${PWD/$HOME/"$DOCKER_HOME"}"
+
+java_docker () {
+
+	#echo "inside java ${PWD} \"$@\" "
+	
+	#docker-compose --file "$COMPOSE_FILE" up -d "$JAVA_CONTAINER_NAME"
+	startContainer "$JAVA_CONTAINER_NAME"  "$COMPOSE_FILE"
+
+	docker-compose --file "$COMPOSE_FILE" exec -w "${dir_mapped_in_container}" "$JAVA_CONTAINER_NAME"  java "$@"
+}
+
+
 java_docker "$@"
 

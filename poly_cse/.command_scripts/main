@@ -1,27 +1,19 @@
 #!/bin/bash
 
-COMPOSE_FILE=$LAB_1234_COMPOSE_FILE
-PYTHON_CONTAINER_NAME=$LAB_1234_PYTHON_CONTAINER_NAME
-GCC_CONTAINER_NAME=$LAB_1234_GCC_CONTAINER_NAME 
-JAVA_CONTAINER_NAME=$LAB_1234_JAVA_CONTAINER_NAME 
-DOCKER_HOME=$LAB_1234_CONTAINER_USER_HOME
 logFile=$LAB_1234_LOG_FILE
-dir_mapped_in_container="${PWD/$HOME/"$DOCKER_HOME"}"
-
-testThisFile () {
-	echo $COMPOSE_FILE
-	echo $PYTHON_CONTAINER_NAME
-	echo $GCC_CONTAINER_NAME
-	echo $JAVA_CONTAINER_NAME
-	echo $DOCKER_HOME
-	echo $logFile
-	echo $dir_mapped_in_container
-}
 
 createLogFile () {
+
+	todayEpoch=$(date +%s)
+
+	dateToday=$(date -d @$todayEpoch +'%Y%m%d')
+
+	#echo $dateToday
 	
 	if [ ! -f "$logFile" ]; then
 		touch $logFile
+		echo "file created on : $dateToday" > $logFile
+		return 0;
 	fi
 
 	epoch=$(stat -c "%Y" $logFile)
@@ -29,12 +21,6 @@ createLogFile () {
 	dateModified=$(date -d @$epoch +'%Y%m%d')
 
 	#echo $dateModified
-
-	todayEpoch=$(date +%s)
-
-	dateToday=$(date -d @$todayEpoch +'%Y%m%d')
-
-	#echo $dateToday
 
 	if [ $dateModified -lt $dateToday ]; then
 		touch $logFile
@@ -44,63 +30,11 @@ createLogFile () {
 
 startContainer () {
 	
-	#echo $COMPOSE_FILE
-	#echo "$1"
-	docker-compose --file "$COMPOSE_FILE" up -d "$1" 2>> $logFile
+	# $1=conatiner_name   $2=COMPOSE_FILE
+	#echo "$1"  "$2"
+	docker-compose --file "$2" up -d "$1" 2>> $logFile
 }
 
-gcc_docker () {
-
-	#echo "inside gcc ${PWD} \"$@\" " 
-	
-	#docker-compose --file "$COMPOSE_FILE" up -d "$GCC_CONTAINER_NAME"
-	startContainer "$GCC_CONTAINER_NAME"
-
-	#echo "docker-compose --file $COMPOSE_FILE exec -w ${dir_mapped_in_container} $GCC_CONTAINER_NAME  gcc $@"
-	
-	docker-compose --file "$COMPOSE_FILE" exec -w "${dir_mapped_in_container}" "$GCC_CONTAINER_NAME"  gcc "$@"
-}
-
-gcc_run_docker () {
-
-	#echo "inside gcc ${PWD} \"$@\" "
-	
-	#docker-compose --file "$COMPOSE_FILE" up -d "$GCC_CONTAINER_NAME"
-	
-	startContainer "$GCC_CONTAINER_NAME"
-
-	docker-compose --file "$COMPOSE_FILE" exec -w "${dir_mapped_in_container}" "$GCC_CONTAINER_NAME"  "$@"
-}
-
-java_docker () {
-
-	#echo "inside java ${PWD} \"$@\" "
-	
-	#docker-compose --file "$COMPOSE_FILE" up -d "$JAVA_CONTAINER_NAME"
-	startContainer "$JAVA_CONTAINER_NAME"
-
-	docker-compose --file "$COMPOSE_FILE" exec -w "${dir_mapped_in_container}" "$JAVA_CONTAINER_NAME"  java "$@"
-}
-
-javac_docker () {
-
-	#echo "inside javac ${PWD} \"$@\" "
-	
-	#docker-compose --file "$COMPOSE_FILE" up -d "$JAVA_CONTAINER_NAME"
-	startContainer "$JAVA_CONTAINER_NAME"
-
-	docker-compose --file "$COMPOSE_FILE" exec -w "${dir_mapped_in_container}" "$JAVA_CONTAINER_NAME"  javac "$@"
-}
-
-python_docker () {
-	
-	#echo "inside python ${PWD}\"$@\" "
-	
-	#docker-compose --file "$COMPOSE_FILE" up -d "$PYTHON_CONTAINER_NAME"
-	startContainer "$PYTHON_CONTAINER_NAME"
-
-	docker-compose --file "$COMPOSE_FILE" exec -w "${dir_mapped_in_container}" "$PYTHON_CONTAINER_NAME"  python "$@"  
-}
 
 createLogFile
 

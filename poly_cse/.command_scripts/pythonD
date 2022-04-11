@@ -1,5 +1,23 @@
 #!/bin/bash
 
 source main
+
+COMPOSE_FILE=$LAB_1234_COMPOSE_FILE
+PYTHON_CONTAINER_NAME=$LAB_1234_PYTHON_CONTAINER_NAME
+DOCKER_HOME=$LAB_1234_CONTAINER_USER_HOME
+dir_mapped_in_container="${PWD/$HOME/"$DOCKER_HOME"}"
+
+
+python_docker () {
+	
+	#echo "inside python ${PWD}\"$@\" "
+	
+	#docker-compose --file "$COMPOSE_FILE" up -d "$PYTHON_CONTAINER_NAME"
+	startContainer "$PYTHON_CONTAINER_NAME"  "$COMPOSE_FILE"
+
+	docker-compose --file "$COMPOSE_FILE" exec -w "${dir_mapped_in_container}" "$PYTHON_CONTAINER_NAME"  python "$@"  
+}
+
+
 python_docker "$@"
 

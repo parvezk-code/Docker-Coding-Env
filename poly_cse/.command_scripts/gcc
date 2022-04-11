@@ -2,5 +2,22 @@
 
 source main
 
+COMPOSE_FILE=$LAB_1234_COMPOSE_FILE
+GCC_CONTAINER_NAME=$LAB_1234_GCC_CONTAINER_NAME 
+DOCKER_HOME=$LAB_1234_CONTAINER_USER_HOME
+dir_mapped_in_container="${PWD/$HOME/"$DOCKER_HOME"}"
+
+gcc_docker () {
+
+	#echo "inside gcc ${PWD} \"$@\" " 
+	
+	#docker-compose --file "$COMPOSE_FILE" up -d "$GCC_CONTAINER_NAME"
+	startContainer "$GCC_CONTAINER_NAME" "$COMPOSE_FILE"
+
+	#echo "docker-compose --file $COMPOSE_FILE exec -w ${dir_mapped_in_container} $GCC_CONTAINER_NAME  gcc $@"
+	
+	docker-compose --file "$COMPOSE_FILE" exec -w "${dir_mapped_in_container}" "$GCC_CONTAINER_NAME"  gcc "$@"
+}
+
 gcc_docker "$@"
 
