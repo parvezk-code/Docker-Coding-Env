@@ -31,14 +31,21 @@ Architecture of this setup
 	=> proxy commands intercept the actual commands and redirect them to the conatiners.
 
 How does this setup work (docker-compose, set_env_bashrc, proxy cmds )
+
 	=> create conatiners from docker-compose file
+
 	=> scripts inside dir(.command_scripts) intersecpt java, gcc, python commands
+
 	=> these intersecpted(proxy) commands execute actual commands on the conatiners
+
 	=> update $PATH in .bashrc to redirect commands to dir(.command_scripts)
+
 	=> update .bashrc/.profile to expose environment variables needed by proxy script.
+
 	=> create .desktop file for XAMPP UI at Desktop
 
 Steps to install a new language inside this lab setup
+
 	=> export environment variables inside .docker/setEnvVar.sh script
 		  LAB_1234_XXX_CONTAINER_NAME
 		  LAB_1234_XXX_SHARE_DIR
@@ -48,10 +55,13 @@ Steps to install a new language inside this lab setup
 	=> create command intersecpter inside directory(command_scripts)
 
 Steps to install a new docker-compose file
+
 	=> add the new docker-compose file to directory  ./poly_cse/.docker
+
 	=> export path of new docker-compose file inside ./poly_cse/.docker/setEnvVar.sh
 	      export LAB_1234_MERN_COMPOSE_FILE = ..............
 		  export LAB_1234_MERN_CONTINER_NAME= ..............
+
 	=> create proxy scripts for intercepting the commands
 
 The docker-compose.yml containes following container services
@@ -76,6 +86,8 @@ Steps To remove this setup
 	=> remove XAMPP.desktop file from desktop
 
 Copy docker images from one computer to another
+
 	=> docker save  <image_name>  -o $HOME/image_name.tar
+	
 	=> docker load -i image_name.tar
 
