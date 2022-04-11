@@ -64,30 +64,45 @@ Steps to install a new docker-compose file
 
 	=> create proxy scripts for intercepting the commands
 
-The docker-compose.yml containes following container services
-	=> apache	(php:7.2-apache)
-	=> mariadb	(mariadb:10.7.3-focal)
-	=> adminer	(adminer)
-	=> python10	(python:3.10.4-bullseye)
-	=> gcc11	(gcc:11.2-bullseye)
-	=> java17	(openjdk:jdk)
-	=> portainer(portainer/portainer-ce)
-	=> vscodeserver (codercom/code-server) : need more configuration
-
 Steps To remove this setup
+
 	=> remove line from $HOME/.bashrc and $HOME/.profile
 			source /home/........./.docker/setEnvVar.sh
+
 	=> remove directory(code)
+
 	=> docker-compose down
+
 	=> docker rm $(docker ps -a -f status=created -q)
+
 	=> docker rm $(docker ps -a -f status=exited -q)
+
 	=> remove all container images
+
 	=> remove directory containing setup/installation files
+
 	=> remove XAMPP.desktop file from desktop
 
 Copy docker images from one computer to another
 
 	=> docker save  <image_name>  -o $HOME/image_name.tar
-	
+
 	=> docker load -i image_name.tar
 
+The docker-compose.yml containes following container services
+
+	=> apache	(php:7.2-apache)
+
+	=> mariadb	(mariadb:10.7.3-focal)
+
+	=> adminer	(adminer)
+
+	=> python10	(python:3.10.4-bullseye)
+
+	=> gcc11	(gcc:11.2-bullseye)
+
+	=> java17	(openjdk:jdk)
+
+	=> portainer(portainer/portainer-ce)
+	
+	=> vscodeserver (codercom/code-server) : need more configuration
